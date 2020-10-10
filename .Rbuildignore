@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+main.R
+^.*\.env
+.Renviron
+^LICENSE\.md$
