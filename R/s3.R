@@ -104,6 +104,26 @@ s3_delete_file <- function(bucket,
     TRUE
   }
 }
+
+#' s3_delete_file
+#' @param bucket Bucket to upload to
+#' @param file File to delete
+#' @export s3_delete_file
+s3_delete_file <- function(bucket,
+                           file) {
+  
+  s3 = botor::botor_client('s3')
+  
+  response <-
+    s3$delete_object(Bucket   = bucket,
+                     Key      = file)
+  
+  if(response$ResponseMetadata$HTTPStatusCode == 204) {
+    TRUE
+  }
+  
+}
+
 #' s3_download_file
 #' @param bucket Bucket to upload to
 #' @param from S3 object name.
@@ -118,4 +138,36 @@ s3_download_file <- function(bucket, from, to) {
 }
 
 
-
+#' s3_list_objects
+#' @param bucket_name bucket_name
+#' @importFrom dplyr if_else
+#' @importFrom dplyr transmute
+#' @importFrom purrr map_df
+#' @importFrom tibble tibble
+#' @importFrom tibble as_tibble
+#' @export s3_list_objects
+s3_list_objects <- function(bucket_name = NA) {
+  
+  s3 = botor::botor_client('s3')
+  
+  results <-
+    s3$list_objects(Bucket=bucket_name)
+  
+  if(is.null(results$Contents)) {
+    return(FALSE)
+  }
+  
+  results$Contents %>%
+    purrr::map_df(function(x) {
+      as.data.frame(lapply(unlist(x), as.character))
+    }) %>%
+    dplyr::transmute(
+      key = as.character(Key),
+      size = as.character(Size),
+      etag = as.character(ETag),
+      storage_class = as.character(StorageClass),
+      owner_id = as.character(Owner.ID),
+      last_modified = as.character(LastModified)
+    ) %>%
+    dplyr::as_tibble()
+}

@@ -1,10 +1,4 @@
-library(botor)
-library(tidyverse)
 library(biggr2)
-
-reticulate::conda_install(packages = 'boto3')
-# botor::botor_client('s3')
-#
 
 configure_aws(
   aws_access_key_id = Sys.getenv("AWS_ACCESS"),
@@ -13,11 +7,14 @@ configure_aws(
 )
 
 BUCKET_NAME = 'scratchfdrennan'
-s3_list_buckets()
 
-s3_delete_bucket(bucket_name = BUCKET_NAME)
+s3_list_buckets()
+objects <- s3_list_objects(bucket_name = BUCKET_NAME)
+# purrr::walk(objects$key, ~ s3_delete_file(bucket = BUCKET_NAME, file = .))
+# s3_delete_bucket(bucket_name = BUCKET_NAME)
 s3_create_bucket(bucket_name = BUCKET_NAME)
 fs::file_create('text.txt')
+
 s3_upload_file(
   bucket = 'scratchfdrennan',
   from = 'text.txt',

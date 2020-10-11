@@ -5,6 +5,8 @@
 \title{s3_delete_file}
 \usage{
 s3_delete_file(bucket, file)
+
+s3_delete_file(bucket, file)
 }
 \arguments{
 \item{bucket}{Bucket to upload to}
@@ -12,5 +14,7 @@ s3_delete_file(bucket, file)
 \item{file}{File to delete}
 }
 \description{
+s3_delete_file
+
 s3_delete_file
 }

@@ -1,15 +1,12 @@
 ## Installing biggr2
 
-https://hackmd.io/sNyZ8VBoQZ-h8FKC4nr1_Q
+## The first one: [biggr](https://github.com/fdrennan/biggr)
 
+## [HackMD](https://hackmd.io/sNyZ8VBoQZ-h8FKC4nr1_Q)
 
 Set up reticulate
-renv::use_python(type = 'conda', name = 'biggr2')
+
 `devtools::install_github('fdrennan/biggr2')`
-
-The older version:
-
-<https://github.com/fdrennan/biggr>
 
     library(botor)
     library(tidyverse)
