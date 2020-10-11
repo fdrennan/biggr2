@@ -1,7 +1,10 @@
 ## Installing biggr2
 
-Set up reticulate
+https://hackmd.io/sNyZ8VBoQZ-h8FKC4nr1_Q
 
+
+Set up reticulate
+renv::use_python(type = 'conda', name = 'biggr2')
 `devtools::install_github('fdrennan/biggr2')`
 
 The older version:
