@@ -5,21 +5,14 @@
 #' @param location An AWS region. Defaults to us-east-2
 #' @export s3_create_bucket
 s3_create_bucket <- function(bucket_name = NA, location = 'us-east-2') {
-  message(
-    'Bucket name should conform with DNS requirements:
-    - Should not contain uppercase characters
-    - Should not contain underscores (_)
-    - Should be between 3 and 63 characters long
-    - Should not end with a dash
-    - Cannot contain two, adjacent periods
-    - Cannot contain dashes next to periods (e.g., "my-.bucket.com" and "my.-bucket" are invalid)'
-  )
   s3 <- botor::botor_client('s3')
   response <-
     s3$create_bucket(Bucket=bucket_name,
                      CreateBucketConfiguration=list(LocationConstraint= location))
+  cli::cli_alert_success('Your bucket location is {response$Location}')
   response$Location
 }
+
 #' s3_put_object_acl
 #' @importFrom botor botor_client
 #' @param bucket bucket_name
@@ -54,14 +47,7 @@ s3_upload_file <- function(bucket,
   if(make_public) {
     s3_put_object_acl(bucket = bucket, file = to)
   }
-  message(
-    paste(
-      "You may need to change the region in the url",
-      paste0('https://s3.', region,'.amazonaws.com/', bucket,'/', to),
-      sep = "\n"
-    )
-  )
-  paste0('https://s3.us-east-2.amazonaws.com/', bucket,'/', to)
+  TRUE
 }
 #' s3_list_buckets
 #' @importFrom botor botor_client
