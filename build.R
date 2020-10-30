@@ -7,7 +7,6 @@ cat(readr::read_file('build.R'))
 
 library(devtools)
 library(conflicted)
-library(argparse)
 library(cli)
 library(fs)
 library(stringr)
