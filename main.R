@@ -6,8 +6,6 @@ configure_aws(
   default.region = 'us-east-2'
 )
 
-reticulate::virtualenv_install(packages = 'boto3')
-
 BUCKET_NAME = 'scratchfdrennan'
 
 #' s3_bucket_exists

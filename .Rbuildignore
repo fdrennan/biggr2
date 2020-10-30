@@ -8,3 +8,5 @@ main.R
 ^LICENSE\.md$
 ^\.circleci$
 ^\.circleci/config\.yml$
+^README\.Rmd$
+^codecov\.yml$
