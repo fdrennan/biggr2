@@ -1,170 +1,47 @@
-# https://github.com/fdrennan/biggr/tree/master/R
-#' s3_create_bucket
-#' @importFrom botor botor_client
-#' @param bucket_name A name for the bucket
-#' @param location An AWS region. Defaults to us-east-2
-#' @export s3_create_bucket
-s3_create_bucket <- function(bucket_name = NA, location = "us-east-2") {
-  s3 <- botor::botor_client("s3")
-  response <-
-    s3$create_bucket(
-      Bucket = bucket_name,
-      CreateBucketConfiguration = list(LocationConstraint = location)
-    )
-  cli::cli_alert_success("Your bucket location is {response$Location}")
-  response$Location
-}
-
-#' s3_put_object_acl
-#' @importFrom botor botor_client
-#' @param bucket bucket_name
-#' @param file file name
-#' @param ACL  permissions type
-#' @export s3_put_object_acl
-s3_put_object_acl <- function(bucket = NA,
-                              file = NA,
-                              ACL = "public-read") {
-  s3 <- botor::botor_client("s3")
-  s3$put_object_acl(
-    ACL = "public-read",
-    Bucket = bucket,
-    Key = file
-  )
-}
-#' upload_file
-#' @importFrom botor botor_client
-#' @param bucket Bucket to upload to
-#' @param from File to upload
-#' @param to S3 object name.
-#' @param make_public boolean
-#' @param region To create url for file
-#' @export s3_upload_file
-s3_upload_file <- function(bucket,
-                           from,
-                           to,
-                           make_public = FALSE,
-                           region = "us-east-2") {
-  s3 <- botor::botor_client("s3")
-  s3$upload_file(
-    Filename = from,
-    Bucket = bucket,
-    Key = to
-  )
-  if (make_public) {
-    s3_put_object_acl(bucket = bucket, file = to)
-  }
-  TRUE
-}
-#' s3_list_buckets
-#' @importFrom botor botor_client
-#' @importFrom magrittr %>%
-#' @importFrom purrr map_df
-#' @importFrom tibble tibble
+#' Print S1 Bucket Information
+#'
+#' @importFrom purrr map
+#' @importFrom dplyr bind_rows
+#' @importFrom lubridate ymd_hms
+#' @param key_access Your AWS ACCESS Key.
+#' @param key_secret Your AWS SECRET Key.
+#' @param region Your AWS REGION.
+#'
+#' @return A tibble
 #' @export s3_list_buckets
-s3_list_buckets <- function() {
-  s3 <- botor::botor_client("s3")
-  s3$list_buckets()$Buckets %>%
-    map_df(function(x) {
-      tibble(
-        name = x$Name,
-        creation_date = as.character(x$CreationDate)
-      )
-    })
-}
-#' s3_create_bucket
-#' @param bucket_name A name for the bucket
-#' @export s3_delete_bucket
-s3_delete_bucket <- function(bucket_name = NA) {
-  s3 <- botor::botor_client("s3")
-  response <-
-    try(s3$delete_bucket(Bucket = bucket_name))
-  if (
-    response$ResponseMetadata$HTTPStatusCode == 204
-  ) {
-    return(TRUE)
-  }
-}
-#' s3_delete_file
-#' @param bucket Bucket to upload to
-#' @param file File to delete
-#' @export s3_delete_file
-s3_delete_file <- function(bucket,
-                           file) {
-  s3 <- botor::botor_client("s3")
-  response <-
-    s3$delete_object(
-      Bucket = bucket,
-      Key = file
-    )
-  if (response$ResponseMetadata$HTTPStatusCode == 204) {
-    TRUE
-  }
-}
-
-#' s3_delete_file
-#' @param bucket Bucket to upload to
-#' @param file File to delete
-#' @export s3_delete_file
-s3_delete_file <- function(bucket,
-                           file) {
-  s3 <- botor::botor_client("s3")
-
-  response <-
-    s3$delete_object(
-      Bucket = bucket,
-      Key = file
-    )
-
-  if (response$ResponseMetadata$HTTPStatusCode == 204) {
-    TRUE
-  }
-}
-
-#' s3_download_file
-#' @param bucket Bucket to upload to
-#' @param from S3 object name.
-#' @param to File path
-#' @export s3_download_file
-s3_download_file <- function(bucket, from, to) {
-  s3 <- botor::botor_client("s3")
-  s3$download_file(
-    Bucket = bucket,
-    Filename = to,
-    Key = from
+#'
+#' @family describe
+#' @family s3
+#'
+#' @examples
+#'
+#' \dontrun{
+#' # Return Information About Existing S3 Buckets
+#' s3_list_buckets(
+#'   key_access = Sys.getenv("AWS_ACCESS"),
+#'   key_secret = Sys.getenv("AWS_SECRET"),
+#'   region = Sys.getenv("AWS_REGION")
+#' )
+#' }
+#'
+s3_list_buckets <- function(key_access = Sys.getenv("AWS_ACCESS"),
+                            key_secret = Sys.getenv("AWS_SECRET"),
+                            region = Sys.getenv("AWS_REGION")) {
+  ec2_client <- client(
+    service = "s3",
+    key_access = key_access,
+    key_secret = key_secret,
+    region = region
   )
-  TRUE
-}
 
+  b_list_buckets <- ec2_client$list_buckets()
 
-#' s3_list_objects
-#' @param bucket_name bucket_name
-#' @importFrom dplyr if_else
-#' @importFrom dplyr transmute
-#' @importFrom purrr map_df
-#' @importFrom tibble tibble
-#' @importFrom tibble as_tibble
-#' @export s3_list_objects
-s3_list_objects <- function(bucket_name = NA) {
-  s3 <- botor::botor_client("s3")
+  bucket_list <- map(b_list_buckets$Buckets, function(x) {
+    tibble(
+      name = x$Name,
+      creation_date = ymd_hms(as.character(x$CreationDate))
+    )
+  })
 
-  results <-
-    s3$list_objects(Bucket = bucket_name)
-
-  if (is.null(results$Contents)) {
-    return(FALSE)
-  }
-
-  results$Contents %>%
-    purrr::map_df(function(x) {
-      as.data.frame(lapply(unlist(x), as.character))
-    }) %>%
-    dplyr::transmute(
-      key = as.character(Key),
-      size = as.character(Size),
-      etag = as.character(ETag),
-      storage_class = as.character(StorageClass),
-      owner_id = as.character(Owner.ID),
-      last_modified = as.character(LastModified)
-    ) %>%
-    dplyr::as_tibble()
+  bind_rows(bucket_list)
 }

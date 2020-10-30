@@ -10,3 +10,5 @@ main.R
 ^\.circleci/config\.yml$
 ^README\.Rmd$
 ^codecov\.yml$
+build.R
+project_files

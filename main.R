@@ -1,56 +1,49 @@
-library(biggr2)
-
-configure_aws(
-  aws_access_key_id = Sys.getenv("AWS_ACCESS"),
-  aws_secret_access_key = Sys.getenv("AWS_SECRET"),
-  default.region = 'us-east-2'
-)
-
-BUCKET_NAME = 'scratchfdrennan'
-
-#' s3_bucket_exists
-#' @param bucket_name A possible bucket name you may own
-#' @export s3_bucket_exists
-s3_bucket_exists <- function(bucket_name = NULL, verbose = TRUE) {
-  existing_buckets <- s3_list_buckets() 
-  if (verbose) cli::cli_alert_info('These are your buckets');  print(existing_buckets)
-  bucket_name %in% existing_buckets$name
-}
-
-#' s3_list_files
-#' @param file_name
-#' @export s3_file_exists
-s3_file_exists <- function(bucket_name = NULL, file_name = NULL) {
-  objects <- s3_list_objects(bucket_name = bucket_name)
-  print(head(objects))
-  file_name %in% objects$key
-}
-
-if (magrittr::not(s3_bucket_exists(BUCKET_NAME))) {
-  s3_create_bucket(BUCKET_NAME)
-} else {
-  objects <- s3_list_objects(bucket_name = BUCKET_NAME)
-  purrr::walk(
-    objects$key, ~ s3_delete_file(bucket = BUCKET_NAME, file = .)
+#' Print S3 Bucket Information
+#'
+#' @importFrom purrr map
+#' @importFrom dplyr bind_rows
+#' @importFrom lubridate ymd_hms
+#' @param key_access Your AWS ACCESS Key. 
+#' @param key_secret Your AWS SECRET Key.
+#' @param region Your AWS REGION. 
+#'
+#' @return A tibble
+#' @export s3_list_buckets
+#' 
+#' @family describe
+#' @family s3
+#'
+#' @examples
+#' 
+#' \dontrun{
+#' # Return Information About Existing S3 Buckets
+#' s3_list_buckets(
+#'     key_access = Sys.getenv("AWS_ACCESS"),
+#'     key_secret = Sys.getenv("AWS_SECRET"),
+#'     region = Sys.getenv("AWS_REGION")
+#' )
+#' }
+#' 
+s3_list_buckets <- function(key_access = Sys.getenv("AWS_ACCESS"),
+                            key_secret = Sys.getenv("AWS_SECRET"),
+                            region = Sys.getenv("AWS_REGION")) {
+  ec2_client <- client(
+    service = 's3', 
+    key_access = key_access,
+    key_secret = key_secret, 
+    region = region
   )
-  s3_delete_bucket(bucket_name = BUCKET_NAME)
-  s3_create_bucket(BUCKET_NAME)
+  
+  b_list_buckets <- ec2_client$list_buckets()
+  
+  bucket_list <- map(b_list_buckets$Buckets, function(x) {
+    tibble(
+      name = x$Name, 
+      creation_date = ymd_hms(as.character(x$CreationDate))
+    )
+  })
+  
+  bind_rows(bucket_list)
 }
 
-
-
-fs::file_create('text.txt')
-
-s3_upload_file(
-  bucket = 'scratchfdrennan',
-  from = 'text.txt',
-  to = 'text_there.txt',
-  make_public = FALSE
-)
-
-s3_download_file(
-  bucket = 'scratchfdrennan',
-  from = 'text_there.txt',
-  to = 'text_here.txt'
-)
-
+s3_list_buckets()
