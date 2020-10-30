@@ -8,7 +8,7 @@
 [![CircleCI build
 status](https://circleci.com/gh/fdrennan/biggr2.svg?style=svg)](https://circleci.com/gh/fdrennan/biggr2)
 
-[![codecov](https://codecov.io/gh/fdrennan/biggr2/branch/beta/graph/badge.svg?token=bql3Sg35ae)](undefined)
+[![codecov](https://codecov.io/gh/fdrennan/biggr2/branch/main/graph/badge.svg?token=bql3Sg35ae)](undefined)
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
@@ -16,6 +16,8 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 <!-- badges: end -->
 
 ![](https://codecov.io/gh/fdrennan/biggr2/commit/cffdd2c603842d321bcc29b00a78d4e1f732cfa1/graphs/sunburst.svg)
+
+[Code Coverage](https://codecov.io/gh/fdrennan/biggr2)
 
 Download the development version from [GitHub](https://github.com/)
 with:
