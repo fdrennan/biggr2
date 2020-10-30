@@ -24,6 +24,9 @@ jobs:
             Rscript -e 'installed.packages()[, c("Package", "Version")]'
             Rscript -e 'rmarkdown::pandoc_version()'
       - run:
+          name: My Build Rscript
+          command: Rscript build.R
+      - run:
           name: Build package
           command: R CMD build .
       - run:
