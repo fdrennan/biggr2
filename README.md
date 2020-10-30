@@ -27,4 +27,4 @@ devtools::install_github("fdrennan/biggr2")
 
 ## Read The Manual
 
-Start with the function `boto3()`.
+Start with the function `boto3()` or `client()`.
