@@ -6,7 +6,19 @@
 \usage{
 client(service = NULL, key_access = NULL, key_secret = NULL, region = NULL)
 }
+\arguments{
+\item{service}{NULL Ane AWS Service like \code{'ec2'} or \code{'s3'}}
+
+\item{key_access}{NULL Your AWS ACCESS Key}
+
+\item{key_secret}{NULL Your AWS Secret Key}
+
+\item{region}{NULL Your preferred AWS Region, mine is us-east-2}
+}
 \description{
 Client Level Access to AWS Services:w
+}
+\details{
+Access an AWS Client Service
 }
 \concept{client}

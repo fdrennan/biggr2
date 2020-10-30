@@ -24,6 +24,11 @@ jobs:
             Rscript -e 'installed.packages()[, c("Package", "Version")]'
             Rscript -e 'rmarkdown::pandoc_version()'
       - run:
+          name: Install Python
+          command: |
+            Rscript -e 'reticulate::install_miniconda()'
+            Rscript -e 'reticulate::conda_install(packages="boto3")'
+      - run:
           name: Build package
           command: R CMD build .
       - run:
