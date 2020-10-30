@@ -8,7 +8,7 @@
 [![CircleCI build
 status](https://circleci.com/gh/fdrennan/biggr2.svg?style=svg)](https://circleci.com/gh/fdrennan/biggr2)
 
-[![codecov](https://codecov.io/gh/fdrennan/biggr2/branch/beta/graph/badge.svg?token=bql3Sg35ae)](undefined)
+[![codecov](https://codecov.io/gh/fdrennan/biggr2/branch/main/graph/badge.svg?token=bql3Sg35ae)](undefined)
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
