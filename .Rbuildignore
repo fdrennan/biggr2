@@ -6,3 +6,5 @@ main.R
 ^.*\.env
 .Renviron
 ^LICENSE\.md$
+^\.circleci$
+^\.circleci/config\.yml$

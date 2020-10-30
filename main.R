@@ -3,8 +3,10 @@ library(biggr2)
 configure_aws(
   aws_access_key_id = Sys.getenv("AWS_ACCESS"),
   aws_secret_access_key = Sys.getenv("AWS_SECRET"),
-  default.region = Sys.getenv("AWS_REGION")
+  default.region = 'us-east-2'
 )
+
+reticulate::virtualenv_install(packages = 'boto3')
 
 BUCKET_NAME = 'scratchfdrennan'
 
