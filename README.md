@@ -17,6 +17,8 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 
 ![](https://codecov.io/gh/fdrennan/biggr2/commit/cffdd2c603842d321bcc29b00a78d4e1f732cfa1/graphs/sunburst.svg)
 
+[Code Coverage](https://codecov.io/gh/fdrennan/biggr2)
+
 Download the development version from [GitHub](https://github.com/)
 with:
 
