@@ -1,15 +1,11 @@
 version: 2
-workflows:
-  test-env-vars:
-    jobs:
-      - build:
-          context: biggir # has an env var called MY_ENV_VAR
 jobs:
   build:
     docker:
       - image: rocker/verse:latest
     environment:
       R_LIBS: ~/R/Library
+    context: biggr
     steps:
       - restore_cache:
           keys:
