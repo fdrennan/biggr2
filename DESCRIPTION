@@ -5,14 +5,15 @@ Version: 0.1.0
 Author: Freddy Drennan 
 Maintainer: Freddy Drennan <drennanfreddy@gmail.com>
 Description: A Package for Deploying R Applications on AWS
+    This package should assist you with connecting and deploying
+    R applications on AWS EC2.
 Imports: 
     reticulate,
-    purrr,
-    magrittr,
-    tibble,
-    lifecycle
+    cli,
+    dplyr,
+    lubridate,
+    purrr
 Suggests:
-    argparse,
     styler,
     conflicted,
     roxygen2,
@@ -23,4 +24,3 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
-RdMacros: lifecycle

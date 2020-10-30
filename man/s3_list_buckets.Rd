@@ -2,10 +2,38 @@
 % Please edit documentation in R/s3.R
 \name{s3_list_buckets}
 \alias{s3_list_buckets}
-\title{s3_list_buckets}
+\title{Print S1 Bucket Information}
 \usage{
-s3_list_buckets()
+s3_list_buckets(
+  key_access = Sys.getenv("AWS_ACCESS"),
+  key_secret = Sys.getenv("AWS_SECRET"),
+  region = Sys.getenv("AWS_REGION")
+)
+}
+\arguments{
+\item{key_access}{Your AWS ACCESS Key.}
+
+\item{key_secret}{Your AWS SECRET Key.}
+
+\item{region}{Your AWS REGION.}
+}
+\value{
+A tibble
 }
 \description{
-s3_list_buckets
+Print S1 Bucket Information
 }
+\examples{
+
+\dontrun{
+# Return Information About Existing S3 Buckets
+s3_list_buckets(
+  key_access = Sys.getenv("AWS_ACCESS"),
+  key_secret = Sys.getenv("AWS_SECRET"),
+  region = Sys.getenv("AWS_REGION")
+)
+}
+
+}
+\concept{describe}
+\concept{s3}
