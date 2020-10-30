@@ -5,6 +5,7 @@ jobs:
       - image: rocker/verse:latest
     environment:
       R_LIBS: ~/R/Library
+    context: biggr
     steps:
       - restore_cache:
           keys:
@@ -34,6 +35,9 @@ jobs:
       - run:
           name: Check package
           command: R CMD check --as-cran --no-manual *tar.gz
+      - run:
+          name: Check Coverage
+          command: Rscript -e 'library(covr); codecov(token=system("echo $CODECOV_TOKEN"))'
       - store_artifacts:
           path: biggr2.Rcheck/
       - save_cache:

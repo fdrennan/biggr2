@@ -12,3 +12,4 @@ main.R
 ^codecov\.yml$
 build.R
 project_files
+^\.covrignore$
