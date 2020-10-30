@@ -4,12 +4,14 @@
 #' @param bucket_name A name for the bucket
 #' @param location An AWS region. Defaults to us-east-2
 #' @export s3_create_bucket
-s3_create_bucket <- function(bucket_name = NA, location = 'us-east-2') {
-  s3 <- botor::botor_client('s3')
+s3_create_bucket <- function(bucket_name = NA, location = "us-east-2") {
+  s3 <- botor::botor_client("s3")
   response <-
-    s3$create_bucket(Bucket=bucket_name,
-                     CreateBucketConfiguration=list(LocationConstraint= location))
-  cli::cli_alert_success('Your bucket location is {response$Location}')
+    s3$create_bucket(
+      Bucket = bucket_name,
+      CreateBucketConfiguration = list(LocationConstraint = location)
+    )
+  cli::cli_alert_success("Your bucket location is {response$Location}")
   response$Location
 }
 
@@ -20,12 +22,14 @@ s3_create_bucket <- function(bucket_name = NA, location = 'us-east-2') {
 #' @param ACL  permissions type
 #' @export s3_put_object_acl
 s3_put_object_acl <- function(bucket = NA,
-                              file   = NA,
-                              ACL    = 'public-read') {
-  s3 = botor::botor_client('s3')
-  s3$put_object_acl(ACL    ='public-read',
-                    Bucket = bucket,
-                    Key    = file)
+                              file = NA,
+                              ACL = "public-read") {
+  s3 <- botor::botor_client("s3")
+  s3$put_object_acl(
+    ACL = "public-read",
+    Bucket = bucket,
+    Key = file
+  )
 }
 #' upload_file
 #' @importFrom botor botor_client
@@ -40,11 +44,13 @@ s3_upload_file <- function(bucket,
                            to,
                            make_public = FALSE,
                            region = "us-east-2") {
-  s3 = botor::botor_client('s3')
-  s3$upload_file(Filename = from,
-                 Bucket   = bucket,
-                 Key      = to)
-  if(make_public) {
+  s3 <- botor::botor_client("s3")
+  s3$upload_file(
+    Filename = from,
+    Bucket = bucket,
+    Key = to
+  )
+  if (make_public) {
     s3_put_object_acl(bucket = bucket, file = to)
   }
   TRUE
@@ -56,21 +62,23 @@ s3_upload_file <- function(bucket,
 #' @importFrom tibble tibble
 #' @export s3_list_buckets
 s3_list_buckets <- function() {
-  s3 = botor::botor_client('s3')
+  s3 <- botor::botor_client("s3")
   s3$list_buckets()$Buckets %>%
     map_df(function(x) {
-      tibble(name = x$Name,
-             creation_date = as.character(x$CreationDate))
+      tibble(
+        name = x$Name,
+        creation_date = as.character(x$CreationDate)
+      )
     })
 }
 #' s3_create_bucket
 #' @param bucket_name A name for the bucket
 #' @export s3_delete_bucket
 s3_delete_bucket <- function(bucket_name = NA) {
-  s3 = botor::botor_client('s3')
+  s3 <- botor::botor_client("s3")
   response <-
     try(s3$delete_bucket(Bucket = bucket_name))
-  if(
+  if (
     response$ResponseMetadata$HTTPStatusCode == 204
   ) {
     return(TRUE)
@@ -82,11 +90,13 @@ s3_delete_bucket <- function(bucket_name = NA) {
 #' @export s3_delete_file
 s3_delete_file <- function(bucket,
                            file) {
-  s3 = botor::botor_client('s3')
+  s3 <- botor::botor_client("s3")
   response <-
-    s3$delete_object(Bucket   = bucket,
-                     Key      = file)
-  if(response$ResponseMetadata$HTTPStatusCode == 204) {
+    s3$delete_object(
+      Bucket = bucket,
+      Key = file
+    )
+  if (response$ResponseMetadata$HTTPStatusCode == 204) {
     TRUE
   }
 }
@@ -97,17 +107,17 @@ s3_delete_file <- function(bucket,
 #' @export s3_delete_file
 s3_delete_file <- function(bucket,
                            file) {
-  
-  s3 = botor::botor_client('s3')
-  
+  s3 <- botor::botor_client("s3")
+
   response <-
-    s3$delete_object(Bucket   = bucket,
-                     Key      = file)
-  
-  if(response$ResponseMetadata$HTTPStatusCode == 204) {
+    s3$delete_object(
+      Bucket = bucket,
+      Key = file
+    )
+
+  if (response$ResponseMetadata$HTTPStatusCode == 204) {
     TRUE
   }
-  
 }
 
 #' s3_download_file
@@ -116,10 +126,12 @@ s3_delete_file <- function(bucket,
 #' @param to File path
 #' @export s3_download_file
 s3_download_file <- function(bucket, from, to) {
-  s3 = botor::botor_client('s3')
-  s3$download_file(Bucket = bucket,
-                   Filename = to,
-                   Key = from)
+  s3 <- botor::botor_client("s3")
+  s3$download_file(
+    Bucket = bucket,
+    Filename = to,
+    Key = from
+  )
   TRUE
 }
 
@@ -133,16 +145,15 @@ s3_download_file <- function(bucket, from, to) {
 #' @importFrom tibble as_tibble
 #' @export s3_list_objects
 s3_list_objects <- function(bucket_name = NA) {
-  
-  s3 = botor::botor_client('s3')
-  
+  s3 <- botor::botor_client("s3")
+
   results <-
-    s3$list_objects(Bucket=bucket_name)
-  
-  if(is.null(results$Contents)) {
+    s3$list_objects(Bucket = bucket_name)
+
+  if (is.null(results$Contents)) {
     return(FALSE)
   }
-  
+
   results$Contents %>%
     purrr::map_df(function(x) {
       as.data.frame(lapply(unlist(x), as.character))

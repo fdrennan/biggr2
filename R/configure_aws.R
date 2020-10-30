@@ -8,8 +8,7 @@
 configure_aws <- function(aws_access_key_id = NA,
                           aws_secret_access_key = NA,
                           default.region = NA) {
-
-  subprocess <- reticulate::import('subprocess')
+  subprocess <- reticulate::import("subprocess")
 
   access_key <-
     paste("aws configure set aws_access_key_id", aws_access_key_id)
@@ -20,9 +19,7 @@ configure_aws <- function(aws_access_key_id = NA,
   default_region <-
     paste("aws configure set default.region", default.region)
 
-  subprocess$call(access_key, shell=TRUE)
-  subprocess$call(aws_secret_access_key, shell=TRUE)
-  subprocess$call(default_region, shell=TRUE)
-
-
+  subprocess$call(access_key, shell = TRUE)
+  subprocess$call(aws_secret_access_key, shell = TRUE)
+  subprocess$call(default_region, shell = TRUE)
 }
