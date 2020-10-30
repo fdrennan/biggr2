@@ -1,4 +1,9 @@
 version: 2
+workflows:
+  test-env-vars:
+    jobs:
+      - build:
+          context: biggr # has an env var called MY_ENV_VAR
 jobs:
   build:
     docker:
