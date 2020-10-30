@@ -1,7 +1,7 @@
 Package: biggr2
 Type: Package
 Title: A Package for R and AWS 
-Version: 0.1.0
+Version: 0.1.1
 Author: Freddy Drennan 
 Maintainer: Freddy Drennan <drennanfreddy@gmail.com>
 Description: A Package for Deploying R Applications on AWS
