@@ -29,9 +29,6 @@ jobs:
             Rscript -e 'reticulate::install_miniconda()'
             Rscript -e 'reticulate::conda_install(packages="boto3")'
       - run:
-          name: My Build Rscript
-          command: Rscript build.R
-      - run:
           name: Build package
           command: R CMD build .
       - run:
