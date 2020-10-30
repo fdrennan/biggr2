@@ -8,8 +8,8 @@
 [![CircleCI build
 status](https://circleci.com/gh/fdrennan/biggr2.svg?style=svg)](https://circleci.com/gh/fdrennan/biggr2)
 
-[![Codecov test
-coverage](https://codecov.io/gh/fdrennan/biggr2/branch/master/graph/badge.svg)](https://codecov.io/gh/fdrennan/biggr2?branch=master)
+[![codecov](https://codecov.io/gh/fdrennan/biggr2/branch/beta/graph/badge.svg?token=bql3Sg35ae)](undefined)
+
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
@@ -27,4 +27,4 @@ devtools::install_github("fdrennan/biggr2")
 
 ## Read The Manual
 
-Start with the function `boto3()`.
+Start with the function `boto3()` or `client()`.
