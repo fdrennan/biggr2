@@ -38,7 +38,7 @@ boto3 <- function() {
 client <- function(service = NULL, key_access = NULL, key_secret = NULL, region = NULL) {
   client <- boto3()$client
 
-  client <- client$client(
+  client(
     service,
     aws_access_key_id = key_access,
     aws_secret_access_key = key_secret,

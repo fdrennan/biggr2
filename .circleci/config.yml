@@ -13,6 +13,12 @@ jobs:
             - r-pkg-cache-{{ arch }}-
       - checkout
       - run:
+          name: Update pip
+          command: | 
+            apt-get install python3
+            apt-get install python3-pip 
+            pip install --upgrade pip
+      - run:
           name: Install package dependencies
           command: |
             mkdir -p ~/R/Library
