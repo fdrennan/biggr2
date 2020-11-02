@@ -13,6 +13,10 @@ jobs:
             - r-pkg-cache-{{ arch }}-
       - checkout
       - run:
+          name: Update pip
+          command: | 
+            apt-get install python3-venv -y
+      - run:
           name: Install package dependencies
           command: |
             mkdir -p ~/R/Library
