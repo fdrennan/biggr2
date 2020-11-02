@@ -17,7 +17,7 @@ jobs:
           command: | 
             apt-get install python3
             apt-get install python3-pip 
-            apt-get install python3-venv -y
+            pip install --upgrade pip
       - run:
           name: Install package dependencies
           command: |
