@@ -32,6 +32,7 @@ r_env:
 	R	-e	"install.packages('renv')"
 	R	-e	"renv::consent(provided=TRUE)"
 	R	-e	"renv::init()"
+	R	-e	"renv::restore()"
 	R	-e	"renv::use_python(type='virtualenv')"
 	R	-e	"reticulate::virtualenv_install(packages = 'boto3')"
 	R	-e	"reticulate::import('boto3')"
