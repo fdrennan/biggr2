@@ -13,3 +13,5 @@ main.R
 build.R
 project_files
 ^\.covrignore$
+.idea
+Makefile
