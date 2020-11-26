@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -36,6 +38,35 @@ Download the development version from [GitHub](https://github.com/) with:
 devtools::install_github("fdrennan/biggr2")
 ```
 
-## Read The Manual
+## Getting Started
 
-Start with the function `boto3()` or `client()`.
+#### `s3` storage
+
+```{r}
+library(biggr2)
+library(dplyr)
+
+test_bucket_name <- 'fdrenabc'
+
+s3_client <- 
+  client(
+    service = "s3",
+    key_access = Sys.getenv("AWS_ACCESS"),
+    key_secret = Sys.getenv("AWS_SECRET"),
+    region = "us-east-2"
+ )
+```
+
+```{r}
+current_buckets <- s3_list_buckets(client = s3_client)
+
+if (test_bucket_name %in% pull(current_buckets, name)) 
+  s3_delete_bucket(client = s3_client, test_bucket_name)
+
+response <- s3_create_bucket(
+  client = s3_client, 
+  Bucket = 'fdrenabc'
+)
+
+response
+```

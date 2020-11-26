@@ -3,7 +3,7 @@
 # Created by: fdrennan
 # Created on: 10/27/20
 
-cat(readr::read_file('build.R'))
+cat(readr::read_file("build.R"))
 
 library(devtools)
 library(conflicted)
@@ -14,7 +14,7 @@ library(glue)
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) == 0) {
-  args <- 'all'
+  args <- "all"
 }
 
 working_directory <- dir_ls(all = TRUE)
@@ -43,10 +43,10 @@ if ("style" %in% args) {
 if ("document" %in% args) {
   cli_alert_info("Creating Documentation")
   tryCatch(file_delete("NAMESPACE"), error = function(err) {
-    cli::cli_alert('NAMESPACE did not exist...')
+    cli::cli_alert("NAMESPACE did not exist...")
   })
   tryCatch(dir_delete("man"), error = function(err) {
-    cli::cli_alert('Folder `man` did not exist. Creating...')
+    cli::cli_alert("Folder `man` did not exist. Creating...")
   })
   document()
   build_manual(path = "project_files")

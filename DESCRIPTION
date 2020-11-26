@@ -12,7 +12,8 @@ Imports:
     cli,
     dplyr,
     lubridate,
-    purrr
+    purrr,
+    tibble
 Suggests:
     styler,
     conflicted,

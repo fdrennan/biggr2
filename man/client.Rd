@@ -7,7 +7,7 @@
 client(service = NULL, key_access = NULL, key_secret = NULL, region = NULL)
 }
 \arguments{
-\item{service}{NULL Ane AWS Service like \code{'ec2'} or \code{'s3'}}
+\item{service}{NULL An AWS Service like 'ec2' or 's3'}
 
 \item{key_access}{NULL Your AWS ACCESS Key}
 
@@ -16,7 +16,7 @@ client(service = NULL, key_access = NULL, key_secret = NULL, region = NULL)
 \item{region}{NULL Your preferred AWS Region, mine is us-east-2}
 }
 \description{
-Client Level Access to AWS Services:w
+Client Level Access to AWS Services
 }
 \details{
 Access an AWS Client Service
