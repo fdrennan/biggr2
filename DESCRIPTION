@@ -13,7 +13,8 @@ Imports:
     dplyr,
     lubridate,
     purrr,
-    tibble
+    tibble,
+    rlang
 Suggests:
     styler,
     conflicted,

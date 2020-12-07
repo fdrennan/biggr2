@@ -37,5 +37,4 @@ Other s3:
 \code{\link{s3_create_bucket}()},
 \code{\link{s3_delete_bucket}()}
 }
-\concept{descriptions}
 \concept{s3}

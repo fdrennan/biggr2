@@ -60,13 +60,4 @@ s3_client <-
 ```{r}
 current_buckets <- s3_list_buckets(client = s3_client)
 
-if (test_bucket_name %in% pull(current_buckets, name)) 
-  s3_delete_bucket(client = s3_client, test_bucket_name)
-
-response <- s3_create_bucket(
-  client = s3_client, 
-  Bucket = 'fdrenabc'
-)
-
-response
 ```

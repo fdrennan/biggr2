@@ -1,13 +1,15 @@
 #' s3_list_buckets
 #'
 #' @param client A connection to a boto3, S3 Client
-#' @importFrom purrr map
-#' @importFrom dplyr as_tibble
+#' @importFrom purrr map_df
+#' @importFrom tibble tibble
+#' @importFrom dplyr arrange
+#' @importFrom rlang .data
+#' 
 #' @return A tibble 
 #' @export s3_list_buckets
 #' 
 #' @family s3
-#' @family descriptions
 #' 
 #' @description 
 #' 
@@ -32,12 +34,11 @@
 s3_list_buckets <- function(client = NULL) {
   
   list_buckets <- client$list_buckets()$Buckets
-  bucket_response <- map(list_buckets, function(x) {
-    data.frame(
+  bucket_response <- map_df(list_buckets, function(x) {
+    tibble(
       name = x$Name,
       creation_date = as.Date(x$CreationDate$date())
     )
   })
-  bucket_response <- do.call(rbind, bucket_response)
-  as_tibble(bucket_response)
+  arrange(bucket_response, .data$name)
 }

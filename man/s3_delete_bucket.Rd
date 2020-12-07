@@ -4,26 +4,22 @@
 \alias{s3_delete_bucket}
 \title{s3_delete_bucket}
 \usage{
-s3_delete_bucket(client = NULL, Bucket = NULL)
+s3_delete_bucket(client = NULL, bucket = NULL)
 }
 \arguments{
 \item{client}{An s3 client connection}
 
-\item{Bucket}{A bucket's name staged for deletion}
+\item{bucket}{A bucket's name staged for deletion}
 }
 \value{
 A data frame
 }
 \description{
-\link{S3.Client.delete_bucket}(# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.delete_bucket)
-}
-\examples{
-
+\href{https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.delete_bucket}{S3.Client.delete_bucket}
 }
 \seealso{
 Other s3: 
 \code{\link{s3_create_bucket}()},
 \code{\link{s3_list_buckets}()}
 }
-\concept{deletion}
 \concept{s3}
