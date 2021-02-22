@@ -1,3 +1,9 @@
+#' paramiko
+#' @export paramiko
+paramiko <- function() {
+  import("paramiko")
+}
+
 #' Access an AWS Client Service
 #' @title client
 #' @family client
@@ -10,7 +16,10 @@
 #'
 #' @importFrom reticulate import
 #' @export client
-client <- function(service = NULL, key_access = NULL, key_secret = NULL, region = NULL) {
+client <- function(service = NULL,
+                   key_access = Sys.getenv("AWS_ACCESS"),
+                   key_secret = Sys.getenv("AWS_SECRET"),
+                   region = Sys.getenv("AWS_REGION")) {
   client <- boto3()$client
 
   client <- client(
@@ -19,4 +28,10 @@ client <- function(service = NULL, key_access = NULL, key_secret = NULL, region 
     aws_secret_access_key = key_secret,
     region_name = region
   )
+}
+
+#' boto
+#' @export boto3
+boto3 <- function() {
+  import("boto3")
 }

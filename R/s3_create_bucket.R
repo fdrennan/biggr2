@@ -20,14 +20,14 @@
 #'   ObjectLockEnabledForbucket=True|False
 #' )
 #' ```
-#' 
+#'
 #' @param client A connection to the boto3 module
 #' @param bucket A name for the bucket
-#' @param location_constraint Specifies the Region where the bucket will be created. If you don't specify a Region, the bucket is created in the US East (N. Virginia) Region (us-east-1).  
+#' @param location_constraint Specifies the Region where the bucket will be created. If you don't specify a Region, the bucket is created in the US East (N. Virginia) Region (us-east-1).
 #' @param ... Additional Parameters to `client$create_bucket`
-#' 
+#'
 #' @family s3
-#' 
+#'
 #' @export s3_create_bucket
 s3_create_bucket <- function(client = NULL, bucket = NA, location_constraint = "us-east-1", ...) {
   response <-

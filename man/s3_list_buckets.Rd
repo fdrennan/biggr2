@@ -21,13 +21,13 @@ A tibble
 \dontrun{
 library(biggr2)
 
-s3_client <- 
+s3_client <-
   client(
     service = "s3",
     key_access = Sys.getenv("AWS_ACCESS"),
     key_secret = Sys.getenv("AWS_SECRET"),
     region = "us-east-2"
- )
+  )
 
 s3_list_buckets(client = s3_client)
 }

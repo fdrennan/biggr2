@@ -4,7 +4,12 @@
 \alias{client}
 \title{client}
 \usage{
-client(service = NULL, key_access = NULL, key_secret = NULL, region = NULL)
+client(
+  service = NULL,
+  key_access = Sys.getenv("AWS_ACCESS"),
+  key_secret = Sys.getenv("AWS_SECRET"),
+  region = Sys.getenv("AWS_REGION")
+)
 }
 \arguments{
 \item{service}{NULL An AWS Service like 'ec2' or 's3'}
