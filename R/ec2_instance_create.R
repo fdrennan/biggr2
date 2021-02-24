@@ -22,13 +22,18 @@ ec2_instance_create <- function(ImageId = "ami-0996d3051b72b5b2c",
     user_data <- ec2_instance_script()
   }
 
+  tmp_location <- tempfile()
+  user_data_file <- write_file(user_data, tmp_location)
+
+  base_64_user_data <- read_file(encode(tmp_location))
+  ec2 <- paws::ec2()
   response <-
-    client("ec2")$run_instances(
+    ec2$run_instances(
       ImageId = ImageId,
       InstanceType = InstanceType,
       MinCount = as.integer(min),
       MaxCount = as.integer(max),
-      UserData = user_data,
+      UserData = base_64_user_data,
       KeyName = KeyName,
       SecurityGroupIds = list(SecurityGroupId),
       BlockDeviceMappings = list(

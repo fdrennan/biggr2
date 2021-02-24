@@ -8,7 +8,9 @@ Description: A Package for Deploying R Applications on AWS
     This package should assist you with connecting and deploying
     R applications on AWS EC2.
 Depends:
-    purrr
+    purrr,
+    readr,
+    base64
 Imports: 
     reticulate,
     cli,
