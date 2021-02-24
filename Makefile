@@ -13,9 +13,7 @@ build:
 logs:
 	docker-compose logs -f
 
-init: down airflowdir
-	docker-compose pull
-	docker-compose build
+init: down airflowdir pull build
 	docker-compose up -d
 
 initf: init logs
