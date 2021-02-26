@@ -16,6 +16,7 @@ exec 1>$LOG_FILE
 # Redirect standard error to standard out such that 
 # standard error ends up going to wherever standard
 # out goes (the file).
+
 exec 2>&1
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
