@@ -2,7 +2,7 @@ library(biggr2)
 library(glue)
 library(readr)
 
-# yo
+
 user_data <- read_file("ubuntuinit.sh")
 
 user_data <-
