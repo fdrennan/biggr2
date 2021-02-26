@@ -1,7 +1,6 @@
 library(biggr2)
 library(glue)
 library(readr)
-# debugonce(ec2_instance_create)
 
 user_data <- read_file("ubuntuinit.sh")
 
