@@ -64,3 +64,13 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo groupadd docker | echo already in group
 sudo usermod -aG docker ubuntu
 
+# INSTALL NVIDIA DRIVERS
+sudo apt-get install --no-install-recommends nvidia-driver-418 -y
+
+# Install NVIDIA Docker
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+sudo systemctl restart docker
